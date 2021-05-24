@@ -47,24 +47,8 @@ export default function App() {
         <Provider store={store}>
           <Stack.Navigator>
           
-            
-          <Stack.Screen
-              name="Camera"
-              component={CameraScreen}
-              
-              options={{ 
-                headerTitle: props => null,
-                headerShown: false
-               }}
-            />
-            
-          <Stack.Screen
-              name="Add"
-              component={AddPatient}
-              // options={{ headerStyleInterpolator: forFade }}
-            />
-            
-
+          
+          
           <Stack.Screen
               name="Home"
               component={ListData}
@@ -75,6 +59,24 @@ export default function App() {
                 // headerStyle: { backgroundColor: 'tomato' },
               }}
             />
+
+          <Stack.Screen
+              name="Camera"
+              component={CameraScreen}
+              
+              options={{ 
+                headerTitle: props => null,
+                headerShown: false
+               }}
+            />
+          
+
+          <Stack.Screen
+              name="Add"
+              component={AddPatient}
+              // options={{ headerStyleInterpolator: forFade }}
+            />
+              
 
           </Stack.Navigator>
         </Provider>

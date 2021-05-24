@@ -38,19 +38,30 @@ class MyComponent extends React.Component {
   }
   
   moveOn = () => {
-    // this.props.navigation.navigate('Camera')
-    Fire.getFire().database()
+    var our_data = Fire.getFire().database()
       .ref("records")
-      .push()
-      .set(
-        {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          patientID: this.state.patientID,
-          age: this.state.age,
-          isCleared: false,
-        })
+      .push({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        patientID: this.state.patientID,
+        age: this.state.age,
+        isCleared: false,
+      }).getKey()
+      // .then((snap) => {
+      //   console.log(snap.key);
+      //   // our_data = snap.key 
+      // })
+      // .set(
+      //   )
 
+    // var newID = our_data.name();
+
+    // console.log(our_data);
+
+    this.props.navigation.navigate('Camera', {
+        id: our_data
+    })
+  
   }
 
   // const [text, setText] = React.useState('');

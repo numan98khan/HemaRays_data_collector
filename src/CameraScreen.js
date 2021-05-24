@@ -15,6 +15,8 @@ import {
 // eslint-disable-next-line import/no-unresolved
 import { RNCamera } from 'react-native-camera';
 
+import CameraRoll from '@react-native-community/cameraroll';
+
 import { LogLevel, RNFFmpeg } from 'react-native-ffmpeg';
 import RNFS from 'react-native-fs'
 
@@ -37,6 +39,10 @@ const wbOrder = {
 const landmarkSize = 2;
 
 export default class CameraScreen extends React.Component {
+  // static navigationOptions = ({ navigation }) => ({
+  //   id: `${navigation.state.params.id}`,
+  // });
+
   state = {
     flash: 'off',
     zoom: 0,
@@ -155,9 +161,12 @@ export default class CameraScreen extends React.Component {
 
     // MAKE CAMERA CHANGES HERE
 
+    console.log('Video Path:')
+    // console.log('path', this.props.route.params.id)
+
     this.toggleFlash();
 
-    this.delAction();
+    // this.delAction();
 
     const { isRecording } = this.state;
     if (this.camera && !isRecording) {
@@ -173,23 +182,34 @@ export default class CameraScreen extends React.Component {
           const videoPath = data.uri;
           console.log('Video Path:', videoPath)
 
-          let fileName = RNFS.PicturesDirectoryPath + '/Instagram/' + "test.mp4"
+          CameraRoll.save(data.uri, 'video')
+          .then(res => console.log('here' + res))
+          .catch(err => console.log(err))
 
+          // console.log('path', this.props.route.params.id)
 
-          RNFS.copyFile(data.uri, fileName).then(() => {
-              console.log("Video copied locally!!");
+          // let fileName = RNFS.PicturesDirectoryPath + '/Instagram/' + this.props.route.params.id +".mp4"
+          
+          // let fileName= RNFS.PicturesDirectoryPath + '/hema/' + "test.mp4"
+          
+          // RNFS.copyFile(data.uri, fileName)
+
+          // RNFS.copyFile(data.uri, fileName).then(() => {
+          //   console.log('SAVED')
+          // });
+          //     console.log("Video copied locally!!");
               
-              const frameCommand = "-i "+fileName + " -pix_fmt yuvj422p -vsync 0 " + fileName.split('.')[0] + "_frame_%03d.jpg";
+          //     const frameCommand = "-i "+fileName + " -pix_fmt yuvj422p -vsync 0 " + fileName.split('.')[0] + "_frame_%03d.jpg";
           
-              console.log(frameCommand);
+          //     console.log(frameCommand);
 
-              RNFFmpeg.execute(frameCommand).then(
-                result => console.log("FFmpeg process exited with rc ", result)
-              )
+          //     RNFFmpeg.execute(frameCommand).then(
+          //       result => console.log("FFmpeg process exited with rc ", result)
+          //     )
           
-          }, (error) => {
-              console.log("CopyFile fail for video: " + error);
-          });
+          // }, (error) => {
+          //     console.log("CopyFile fail for video: " + error);
+          // });
 
           
           this.setState({ isRecording: false });
@@ -509,6 +529,10 @@ export default class CameraScreen extends React.Component {
   }
 
   render() {
+    // const { params } = this.props.navigation.state;
+    // this.setState({user_id: params.id})
+    // console.log(params.id)
+
     return <View style={styles.container}>{this.renderCamera()}</View>;
   }
 }

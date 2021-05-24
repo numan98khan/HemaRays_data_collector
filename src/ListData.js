@@ -19,6 +19,7 @@ import { bindActionCreators } from 'redux';
 import { updateProducts } from './state/actions';
 
 import { withNavigation} from 'react-navigation';
+import { Button } from 'react-native-paper';
 
 import { FAB } from 'react-native-paper';
 
@@ -101,12 +102,12 @@ class ScreenOne extends React.Component {
 
     return (
       <View>
-        <FAB
+        {/* <FAB
           style={styles.fab}
           large
           icon="plus"
           onPress={() => this.props.navigation.navigate('Add')}
-        />
+        /> */}
 
           <View>
 
@@ -117,8 +118,8 @@ class ScreenOne extends React.Component {
                       {
                       // list.map((l, i) => (
                       // var l = [0, 1, 2, 3, 4, 5]
-                      // this.props.products.liveProductList.map((l, i) => (
-                      llist.map((l, i) => (
+                      this.props.products.liveProductList.map((l, i) => (
+                      // llist.map((l, i) => (
                           
                           // {console.log(i);}
 
@@ -135,6 +136,12 @@ class ScreenOne extends React.Component {
 
 
               </ScrollView> }
+              <Button 
+                onPress={() => this.props.navigation.navigate('Add')}
+                // onPress={() => console.log('Add')}
+                >
+                Add Patient
+              </Button>
           </View>
         </View>
       
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 16,
     right: 0,
-    bottom: 0,
+    bottom: '0%',
   },
 })
 

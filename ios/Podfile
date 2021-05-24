@@ -21,6 +21,8 @@ target 'fypbuild4' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
   post_install do |installer|
     flipper_post_install(installer)
   end
